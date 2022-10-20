@@ -9,7 +9,7 @@
 <body>
   <div id="app" v-cloak>
     <!-- {{` ${firstName} ${lastName}`}} -->
-    <p>{{fullName()}}</p>
+    <p>{{fullName}}</p>
     <p><a :href ="url" target="_blank">Google</a></p>
     <p v-html="raw_url"></p>
     <p>{{age}}</p>
@@ -17,12 +17,23 @@
     <hr/>
 
     <label>First Name</label>
-    <input type ="text" v-model="firstName"/>
+    <input type ="text" v-model.lazy.trim="firstName"/>
+
+    <label>Middle Name</label>
+    <input type = "text" @keyup.enter="updateMiddleName"/>
+    <!-- key modifiers are similiar to event modifier -->
 
     <label>Last Name</label>
-    <input type = "text" v-model="lastName"/>
-    <button type="button" v-on:click="increment">Increase</button>
-    <button type="button" v-on:click="age--">Decrease</button>
+    <input type = "text" :value="lastName" 
+    @input.prevent="updateLastName('Last name event triggered!', $event)"/>
+    <!-- above we used an event modifier which is built into vue. Used .prevent which is similiar to writing event.preventDefault(), this keeping code cleaner-->
+
+    <label>Age</label>
+    <br/>
+    <input type ='number' v-model.number="age" />
+    <br/>
+    <button type="button" @click="increment">Increase</button>
+    <button type="button" @click.ctrl="age--">Decrease</button>
   </div>
 
   <!-- <div id="app2">

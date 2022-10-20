@@ -4,6 +4,7 @@ const vm = Vue.createApp({
     data(){
         return {
             firstName: 'John',
+            middleName: '',
             lastName: 'Doe',
             url: 'https://google.com',
             raw_url: '<a href = "https://google.com" target="_blank">Google</a>',
@@ -11,12 +12,36 @@ const vm = Vue.createApp({
         }
     },
     methods:{
-       fullName() {
-        return `${this.firstName} ${this.lastName}`
-       },
        increment(){
         this.age++
+       },
+       updateLastName(msg, event){
+        // event.preventDefault()
+
+        // console.log(msg)
+
+        this.lastName = event.target.value
+       },
+       updateMiddleName(event){
+        this.middleName = event.target.value
        }
+    },
+    // using the computed property so now that this function doesn't get called if the age is updated
+    //computed properties are there to calculate a property
+    computed:{
+        fullName() {
+            console.log('Full name computed property was called!')
+            
+            return `${this.firstName} ${this.middleName} ${this.lastName}`
+           }
+    },
+    watch:{
+        age(newVal, oldVal){
+            setTimeout(()=>{
+                this.age = 20
+            },3000)
+        }
+        //watchers aren't used as much as data, methods, or computed properties
     }
 }).mount('#app')
 
