@@ -7,9 +7,22 @@
 </head>
 
 <body>
-  <div id="app">
-    {{firstName}}
-    {{lastName}}
+  <div id="app" v-cloak>
+    <!-- {{` ${firstName} ${lastName}`}} -->
+    <p>{{fullName()}}</p>
+    <p><a :href ="url" target="_blank">Google</a></p>
+    <p v-html="raw_url"></p>
+    <p>{{age}}</p>
+
+    <hr/>
+
+    <label>First Name</label>
+    <input type ="text" v-model="firstName"/>
+
+    <label>Last Name</label>
+    <input type = "text" v-model="lastName"/>
+    <button type="button" v-on:click="increment">Increase</button>
+    <button type="button" v-on:click="age--">Decrease</button>
   </div>
 
   <!-- <div id="app2">
